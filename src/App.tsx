@@ -8,14 +8,13 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-
-// Import these routes later when they're created
-// import Login from "./pages/Login";
-// import SignUp from "./pages/SignUp";
-// import CourseList from "./pages/courses/CourseList";
-// import CourseDetail from "./pages/courses/CourseDetail";
-// import ServiceList from "./pages/services/ServiceList";
-// import Dashboard from "./pages/dashboard/Index";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import CourseList from "./pages/courses/CourseList";
+import CourseDetail from "./pages/courses/CourseDetail";
+import ServiceList from "./pages/services/ServiceList";
+import ServiceDetail from "./pages/services/ServiceDetail";
+import Dashboard from "./pages/dashboard/Index";
 
 const queryClient = new QueryClient();
 
@@ -30,16 +29,22 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           
-          {/* Route paths to add when the corresponding pages are created 
+          {/* Authentication Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          
+          {/* Course Routes */}
           <Route path="/courses" element={<CourseList />} />
           <Route path="/courses/:category" element={<CourseList />} />
           <Route path="/course/:id" element={<CourseDetail />} />
+          
+          {/* Service Routes */}
           <Route path="/services" element={<ServiceList />} />
           <Route path="/services/:category" element={<ServiceList />} />
+          <Route path="/services/:id" element={<ServiceDetail />} />
+          
+          {/* Dashboard Routes */}
           <Route path="/dashboard/*" element={<Dashboard />} />
-          */}
           
           <Route path="*" element={<NotFound />} />
         </Routes>
