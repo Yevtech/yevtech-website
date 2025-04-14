@@ -1,14 +1,17 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
+import { createClientComponentClient } from '@supabase/auth-helpers-react';
 
 const Login = () => {
+  const supabase = createClientComponentClient();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,14 +21,53 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Placeholder for actual authentication
-    toast({
-      title: "Authentication Required",
-      description: "To enable login functionality, please connect to Supabase.",
-      duration: 5000,
-    });
-    
-    setTimeout(() => setIsLoading(false), 1000);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Login Successful",
+        description: "Welcome back to YevTech Nexus!",
+        duration: 3000,
+      });
+      
+      // Navigate to dashboard after successful login
+      navigate('/dashboard');
+    } catch (error: any) {
+      console.error('Error signing in:', error);
+      toast({
+        title: "Login Failed",
+        description: error.message || "Please check your credentials and try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+      
+      if (error) throw error;
+    } catch (error: any) {
+      toast({
+        title: "Google Sign In Failed",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    }
   };
 
   return (
@@ -97,7 +139,12 @@ const Login = () => {
               </div>
               
               <div className="grid grid-cols-1 gap-3 mt-4">
-                <Button variant="outline" className="w-full" type="button">
+                <Button 
+                  variant="outline" 
+                  className="w-full" 
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                >
                   <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                     <path
                       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

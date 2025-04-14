@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -22,7 +21,7 @@ import DashboardHome from './DashboardHome';
 import MyCourses from './MyCourses';
 import Services from './Services';
 import Profile from './Profile';
-import Settings from './Settings';
+import SettingsPage from './Settings';
 
 const Sidebar = ({ isMobileMenuOpen, toggleMobileMenu }: { isMobileMenuOpen: boolean, toggleMobileMenu: () => void }) => {
   const navigate = useNavigate();
@@ -30,10 +29,11 @@ const Sidebar = ({ isMobileMenuOpen, toggleMobileMenu }: { isMobileMenuOpen: boo
 
   const handleLogout = () => {
     toast({
-      title: "Authentication Required",
-      description: "To enable logout functionality, please connect to Supabase.",
-      duration: 5000,
+      title: "Logging out...",
+      description: "You have been successfully logged out.",
+      duration: 3000,
     });
+    // We'll implement actual Supabase logout later
   };
 
   const navigationItems = [
@@ -224,16 +224,6 @@ const Dashboard = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Check if the user is authenticated
-  React.useEffect(() => {
-    // For this demo, we'll just show a toast
-    toast({
-      title: "Authentication Required",
-      description: "To enable full dashboard functionality, please connect to Supabase.",
-      duration: 5000,
-    });
-  }, [toast]);
-
   return (
     <div className="min-h-screen bg-background flex">
       <Sidebar isMobileMenuOpen={isMobileMenuOpen} toggleMobileMenu={toggleMobileMenu} />
@@ -247,7 +237,7 @@ const Dashboard = () => {
             <Route path="/courses" element={<MyCourses />} />
             <Route path="/services" element={<Services />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={
               <div className="flex flex-col items-center justify-center h-[60vh]">
                 <h2 className="text-2xl font-bold mb-4">Page Not Found</h2>

@@ -41,7 +41,7 @@ const App = () => (
           {/* Service Routes */}
           <Route path="/services" element={<ServiceList />} />
           <Route path="/services/:category" element={<ServiceList />} />
-          <Route path="/services/:id" element={<ServiceDetail />} />
+          <Route path="/service/:id" element={<ServiceDetail />} />
           
           {/* Dashboard Routes */}
           <Route path="/dashboard/*" element={<Dashboard />} />

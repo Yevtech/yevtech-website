@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,8 +8,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Mail, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
+import { createClientComponentClient } from '@supabase/auth-helpers-react';
 
 const SignUp = () => {
+  const supabase = createClientComponentClient();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -41,14 +44,60 @@ const SignUp = () => {
     
     setIsLoading(true);
     
-    // Placeholder for actual registration
-    toast({
-      title: "Authentication Required",
-      description: "To enable signup functionality, please connect to Supabase.",
-      duration: 5000,
-    });
-    
-    setTimeout(() => setIsLoading(false), 1000);
+    try {
+      // Register user with Supabase
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
+          },
+        },
+      });
+      
+      if (error) throw error;
+      
+      // Success message
+      toast({
+        title: "Registration Successful",
+        description: "Please check your email to verify your account.",
+        duration: 5000,
+      });
+      
+      // Redirect to login or dashboard depending on your flow
+      navigate('/login');
+    } catch (error: any) {
+      console.error('Error signing up:', error);
+      toast({
+        title: "Registration Failed",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+      
+      if (error) throw error;
+    } catch (error: any) {
+      toast({
+        title: "Google Sign Up Failed",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    }
   };
 
   return (
