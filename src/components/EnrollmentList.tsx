@@ -8,19 +8,22 @@ import { useUser } from '@/contexts/UserContext';
 import { supabase } from '@/lib/supabase';
 import { Link } from 'react-router-dom';
 
+// Updated type definition to match the query result
+interface Course {
+  id: string;
+  title: string;
+  image_url: string | null;
+  level: string;
+  duration: string;
+}
+
 interface Enrollment {
   id: string;
   course_id: string;
   status: string;
   progress: number;
   created_at: string;
-  courses: {
-    id: string;
-    title: string;
-    image_url: string | null;
-    level: string;
-    duration: string;
-  };
+  courses: Course;
 }
 
 const EnrollmentList = () => {
@@ -57,7 +60,9 @@ const EnrollmentList = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setEnrollments(data || []);
+      
+      // Type assertion to ensure correct type
+      setEnrollments(data as Enrollment[]);
     } catch (error: any) {
       console.error('Error fetching enrollments:', error);
       toast({
@@ -206,3 +211,4 @@ const EnrollmentList = () => {
 };
 
 export default EnrollmentList;
+
