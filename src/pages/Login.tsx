@@ -6,10 +6,15 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabase = createClient(
+  'https://your-project-url.supabase.co',
+  'your-anon-key'
+);
 
 const Login = () => {
-  const supabase = useSupabaseClient();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [email, setEmail] = useState('');
