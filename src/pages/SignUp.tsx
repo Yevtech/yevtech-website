@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -8,10 +7,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Mail, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
-import { createClientComponentClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const SignUp = () => {
-  const supabase = createClientComponentClient();
+  const supabase = useSupabaseClient();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [name, setName] = useState('');
@@ -45,7 +44,6 @@ const SignUp = () => {
     setIsLoading(true);
     
     try {
-      // Register user with Supabase
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -58,14 +56,12 @@ const SignUp = () => {
       
       if (error) throw error;
       
-      // Success message
       toast({
         title: "Registration Successful",
         description: "Please check your email to verify your account.",
         duration: 5000,
       });
       
-      // Redirect to login or dashboard depending on your flow
       navigate('/login');
     } catch (error: any) {
       console.error('Error signing up:', error);

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -7,10 +6,10 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
-import { createClientComponentClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const Login = () => {
-  const supabase = createClientComponentClient();
+  const supabase = useSupabaseClient();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [email, setEmail] = useState('');
@@ -35,7 +34,6 @@ const Login = () => {
         duration: 3000,
       });
       
-      // Navigate to dashboard after successful login
       navigate('/dashboard');
     } catch (error: any) {
       console.error('Error signing in:', error);
