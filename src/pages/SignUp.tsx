@@ -7,13 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Mail, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client
-const supabase = createClient(
-  'https://your-project-url.supabase.co',
-  'your-anon-key'
-);
+import { supabase } from '@/lib/supabase';
 
 const SignUp = () => {
   const navigate = useNavigate();

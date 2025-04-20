@@ -1,9 +1,10 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { UserProvider } from "@/contexts/UserContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -20,36 +21,36 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          
-          {/* Authentication Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          
-          {/* Course Routes */}
-          <Route path="/courses" element={<CourseList />} />
-          <Route path="/courses/:category" element={<CourseList />} />
-          <Route path="/course/:id" element={<CourseDetail />} />
-          
-          {/* Service Routes */}
-          <Route path="/services" element={<ServiceList />} />
-          <Route path="/services/:category" element={<ServiceList />} />
-          <Route path="/service/:id" element={<ServiceDetail />} />
-          
-          {/* Dashboard Routes */}
-          <Route path="/dashboard/*" element={<Dashboard />} />
-          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <UserProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Authentication Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            
+            {/* Protected Routes */}
+            <Route path="/courses" element={<ProtectedRoute><CourseList /></ProtectedRoute>} />
+            <Route path="/courses/:category" element={<ProtectedRoute><CourseList /></ProtectedRoute>} />
+            <Route path="/course/:id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
+            
+            <Route path="/services" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
+            <Route path="/services/:category" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
+            <Route path="/service/:id" element={<ProtectedRoute><ServiceDetail /></ProtectedRoute>} />
+            
+            <Route path="/dashboard/*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </UserProvider>
   </QueryClientProvider>
 );
 
