@@ -25,7 +25,10 @@ const Login = () => {
         password,
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Login Error:', error);
+        throw error;
+      }
       
       toast({
         title: "Login Successful",
@@ -56,8 +59,18 @@ const Login = () => {
         },
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Google Sign In Error:', error);
+        throw error;
+      }
+      
+      toast({
+        title: "Google Sign In Initiated",
+        description: "Redirecting to Google for authentication...",
+        duration: 3000,
+      });
     } catch (error: any) {
+      console.error('Google Sign In Failed:', error);
       toast({
         title: "Google Sign In Failed",
         description: error.message || "Please try again later.",
