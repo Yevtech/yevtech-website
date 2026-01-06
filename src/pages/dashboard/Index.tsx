@@ -13,7 +13,8 @@ import {
   FileText,
   Upload,
   Bell,
-  User
+  User,
+  Award
 } from 'lucide-react';
 
 // Dashboard Components
@@ -22,6 +23,7 @@ import MyCourses from './MyCourses';
 import Services from './Services';
 import Profile from './Profile';
 import SettingsPage from './Settings';
+import Certificates from './Certificates';
 
 const Sidebar = ({ isMobileMenuOpen, toggleMobileMenu }: { isMobileMenuOpen: boolean, toggleMobileMenu: () => void }) => {
   const navigate = useNavigate();
@@ -39,6 +41,7 @@ const Sidebar = ({ isMobileMenuOpen, toggleMobileMenu }: { isMobileMenuOpen: boo
   const navigationItems = [
     { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/dashboard" },
     { icon: <BookOpen size={20} />, label: "My Courses", path: "/dashboard/courses" },
+    { icon: <Award size={20} />, label: "Certificates", path: "/dashboard/certificates" },
     { icon: <ShoppingBag size={20} />, label: "My Services", path: "/dashboard/services" },
     { icon: <User size={20} />, label: "Profile", path: "/dashboard/profile" },
     { icon: <Settings size={20} />, label: "Settings", path: "/dashboard/settings" }
@@ -235,6 +238,7 @@ const Dashboard = () => {
           <Routes>
             <Route path="/" element={<DashboardHome />} />
             <Route path="/courses" element={<MyCourses />} />
+            <Route path="/certificates" element={<Certificates />} />
             <Route path="/services" element={<Services />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<SettingsPage />} />
