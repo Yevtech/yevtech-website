@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { User, Mail, Lock } from 'lucide-react';
 import Header from '@/components/ui/Header';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 const SignUp = () => {
   const navigate = useNavigate();

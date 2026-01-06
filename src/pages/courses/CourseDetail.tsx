@@ -28,10 +28,12 @@ import {
   LineChart,
   PenTool,
   Mail,
-  Wallet
+  Wallet,
+  GraduationCap
 } from 'lucide-react';
 import Header from '@/components/ui/Header';
 import { useToast } from "@/components/ui/use-toast";
+import TutorOrderModal from '@/components/TutorOrderModal';
 
 interface CourseModule {
   title: string;
@@ -66,8 +68,8 @@ interface CourseData {
   learningOutcomes: string[];
   modules: CourseModule[];
   instructor: Instructor;
+  tutorEmail: string;
 }
-
 const courses: CourseData[] = [
   {
     id: "ai-fundamentals",
@@ -123,7 +125,8 @@ const courses: CourseData[] = [
       role: "AI Research Scientist",
       bio: "Dr. Johnson has over 10 years of experience in AI research and has published numerous papers on machine learning algorithms. She previously worked at leading tech companies before joining YevTech Nexus.",
       avatar: "https://randomuser.me/api/portraits/women/32.jpg"
-    }
+    },
+    tutorEmail: "ai-tutor@yevtechnexus.com"
   },
   {
     id: "blockchain-basics",
@@ -179,7 +182,8 @@ const courses: CourseData[] = [
       role: "Blockchain Developer",
       bio: "Michael has been developing blockchain applications for over 5 years. He has contributed to several open-source blockchain projects and regularly speaks at blockchain conferences worldwide.",
       avatar: "https://randomuser.me/api/portraits/men/42.jpg"
-    }
+    },
+    tutorEmail: "blockchain-tutor@yevtechnexus.com"
   },
   // Add more courses here for the other IDs
   {
@@ -236,7 +240,8 @@ const courses: CourseData[] = [
       role: "Senior Web Developer",
       bio: "Jessica has 8 years of experience in web development and has worked with startups and large corporations to build scalable web applications. She specializes in React and Node.js ecosystems.",
       avatar: "https://randomuser.me/api/portraits/women/45.jpg"
-    }
+    },
+    tutorEmail: "webdev-tutor@yevtechnexus.com"
   }
 ];
 
@@ -356,6 +361,12 @@ const CourseDetail = () => {
                 <Button variant="outline" onClick={handleStartFreeTrial} className="w-full md:w-auto border-white text-white hover:bg-white/10">
                   Start Free Trial
                 </Button>
+                <TutorOrderModal courseName={course.title} tutorEmail={course.tutorEmail}>
+                  <Button variant="outline" className="w-full md:w-auto border-white text-white hover:bg-white/10 gap-2">
+                    <GraduationCap className="h-4 w-4" />
+                    Order a Tutor
+                  </Button>
+                </TutorOrderModal>
               </div>
             </div>
           </div>
