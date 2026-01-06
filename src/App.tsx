@@ -11,6 +11,8 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CourseList from "./pages/courses/CourseList";
 import CourseDetail from "./pages/courses/CourseDetail";
 import ServiceList from "./pages/services/ServiceList";
@@ -34,6 +36,8 @@ const App = () => (
             {/* Authentication Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             
             {/* Protected Routes */}
             <Route path="/courses" element={<ProtectedRoute><CourseList /></ProtectedRoute>} />

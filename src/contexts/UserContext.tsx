@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
 
 interface UserContextType {
@@ -41,8 +41,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             const { data: profile, error: profileError } = await supabase
               .from('profiles')
               .select('*')
-              .eq('id', user.id)
-              .single();
+              .eq('user_id', user.id)
+              .maybeSingle();
             
             if (profileError) {
               console.error('Error fetching profile:', profileError);
@@ -75,8 +75,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           const { data: profile, error } = await supabase
             .from('profiles')
             .select('*')
-            .eq('id', session.user.id)
-            .single();
+            .eq('user_id', session.user.id)
+            .maybeSingle();
             
           if (error) {
             console.error('Error fetching profile on auth change:', error);

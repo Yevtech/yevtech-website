@@ -28,30 +28,92 @@ const Index = () => {
       <Header />
       
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-black to-forest py-20">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
+        {/* Hero Section - Dynamic & Stylish */}
+        <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-black">
+          {/* Animated background elements */}
+          <div className="absolute inset-0">
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-forest-950 to-black opacity-90"></div>
+            
+            {/* Animated grid pattern */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(rgba(27, 77, 62, 0.3) 1px, transparent 1px),
+                                  linear-gradient(90deg, rgba(27, 77, 62, 0.3) 1px, transparent 1px)`,
+                backgroundSize: '60px 60px',
+                animation: 'pulse 4s ease-in-out infinite'
+              }}></div>
+            </div>
+            
+            {/* Floating orbs */}
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-forest/30 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-forest-700/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-forest-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          </div>
+          
+          {/* Content */}
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mx-auto text-center text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Empowering the Next Generation with Future-Ready Skills</h1>
-              <p className="text-xl mb-8">
-                YevTech Nexus is a community of innovation, bridging the gap between traditional learning 
-                and modern industry demands.
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest/20 border border-forest/30 text-forest-300 text-sm mb-8 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-forest-400 animate-pulse"></span>
+                Future-Ready Education Platform
+              </div>
+              
+              {/* Main heading with gradient text */}
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span className="text-white">Empowering the</span>
+                <br />
+                <span className="bg-gradient-to-r from-forest-400 via-forest-300 to-forest-500 bg-clip-text text-transparent">
+                  Next Generation
+                </span>
+              </h1>
+              
+              {/* Subheading */}
+              <p className="text-xl md:text-2xl mb-10 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                YevTech Nexus is a community of innovation, bridging the gap between 
+                <span className="text-forest-400 font-medium"> traditional learning</span> and 
+                <span className="text-forest-300 font-medium"> modern industry demands</span>.
               </p>
+              
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link to="/courses">
-                  <Button className="bg-forest hover:bg-forest-700 text-white px-8 py-6 text-lg w-full sm:w-auto">
-                    Explore Courses
+                  <Button className="group relative bg-forest hover:bg-forest-600 text-white px-8 py-6 text-lg w-full sm:w-auto overflow-hidden transition-all duration-300 shadow-lg shadow-forest/30 hover:shadow-xl hover:shadow-forest/40">
+                    <span className="relative z-10 flex items-center gap-2">
+                      Explore Courses
+                      <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-forest-600 to-forest opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </Button>
                 </Link>
                 <Link to="/contact">
-                  <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 px-8 py-6 text-lg w-full sm:w-auto">
+                  <Button variant="outline" className="bg-transparent border-2 border-forest-400 text-forest-300 hover:bg-forest-400/10 hover:text-forest-200 px-8 py-6 text-lg w-full sm:w-auto transition-all duration-300">
                     Get in Touch
                   </Button>
                 </Link>
               </div>
+              
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-forest/20">
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-forest-400">500+</div>
+                  <div className="text-gray-400 text-sm mt-1">Students Trained</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-forest-300">50+</div>
+                  <div className="text-gray-400 text-sm mt-1">Expert Courses</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-forest-500">95%</div>
+                  <div className="text-gray-400 text-sm mt-1">Success Rate</div>
+                </div>
+              </div>
             </div>
           </div>
+          
+          {/* Bottom gradient fade */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
         </section>
 
         {/* Programs Section */}
