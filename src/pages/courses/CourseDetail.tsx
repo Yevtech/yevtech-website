@@ -355,9 +355,12 @@ const CourseDetail = () => {
               </div>
               <div className="w-full md:w-auto flex flex-col gap-3">
                 <div className="text-3xl font-bold">{course.price}</div>
-                <Button onClick={handleEnroll} className="w-full md:w-auto bg-white text-forest hover:bg-white/90 font-semibold">
-                  Enroll Now
-                </Button>
+                <Link to={`/course/${course.id}/learn`}>
+                  <Button className="w-full md:w-auto bg-white text-forest hover:bg-white/90 font-semibold gap-2">
+                    <Play className="h-4 w-4" />
+                    Start Learning
+                  </Button>
+                </Link>
                 <Button variant="outline" onClick={handleStartFreeTrial} className="w-full md:w-auto border-white text-white hover:bg-white/10">
                   Start Free Trial
                 </Button>

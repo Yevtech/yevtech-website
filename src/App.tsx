@@ -15,6 +15,7 @@ import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CourseList from "./pages/courses/CourseList";
 import CourseDetail from "./pages/courses/CourseDetail";
+import CourseLearning from "./pages/courses/CourseLearning";
 import ServiceList from "./pages/services/ServiceList";
 import ServiceDetail from "./pages/services/ServiceDetail";
 import Dashboard from "./pages/dashboard/Index";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/courses" element={<ProtectedRoute><CourseList /></ProtectedRoute>} />
             <Route path="/courses/:category" element={<ProtectedRoute><CourseList /></ProtectedRoute>} />
             <Route path="/course/:id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
+            <Route path="/course/:id/learn" element={<ProtectedRoute><CourseLearning /></ProtectedRoute>} />
             
             <Route path="/services" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
             <Route path="/services/:category" element={<ProtectedRoute><ServiceList /></ProtectedRoute>} />
