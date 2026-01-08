@@ -211,44 +211,30 @@ export type Database = {
       }
     }
     Views: {
-      quiz_questions_public: {
-        Row: {
-          created_at: string | null
-          id: string | null
-          module_id: string | null
-          options: Json | null
-          order_index: number | null
-          question: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          id?: string | null
-          module_id?: string | null
-          options?: Json | null
-          order_index?: number | null
-          question?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: string | null
-          module_id?: string | null
-          options?: Json | null
-          order_index?: number | null
-          question?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "quiz_questions_module_id_fkey"
-            columns: ["module_id"]
-            isOneToOne: false
-            referencedRelation: "course_modules"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       generate_certificate_number: { Args: never; Returns: string }
+      get_quiz_questions: {
+        Args: { p_module_id: string }
+        Returns: {
+          created_at: string
+          id: string
+          module_id: string
+          options: Json
+          order_index: number
+          question: string
+        }[]
+      }
+      verify_quiz_answers: {
+        Args: { p_answers: Json; p_module_id: string; p_user_id: string }
+        Returns: {
+          passed: boolean
+          results: Json
+          score: number
+          total_questions: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
