@@ -211,7 +211,41 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      quiz_questions_public: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          module_id: string | null
+          options: Json | null
+          order_index: number | null
+          question: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string | null
+          module_id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          question?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string | null
+          module_id?: string | null
+          options?: Json | null
+          order_index?: number | null
+          question?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "course_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       generate_certificate_number: { Args: never; Returns: string }
